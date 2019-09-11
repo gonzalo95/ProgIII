@@ -24,23 +24,33 @@
     switch ($request) {
         case 'GET': //LISTAR
             if (isset($_GET['id'])) {
-                TraerListado();
+                TraerUno($_GET['id']);
             } 
             else {
-                // TRAER TODO
+                TraerListado();
             }
             break;
         
         case 'POST': //GUARDAR
-            guardar();
+            if ($_POST['metodo'] == 'PUT') {
+                modificar($_POST['id']);
+            } 
+            elseif ($_POST['metodo'] == 'DELETE') {
+                eliminar($_POST['id']);
+            }
+            else {
+                guardar();
+            }
             break;
 
         case 'PUT': //MODIFICAR
-            modificar($_PUT['legajo']);
+            var_dump($_PUT);
+            // modificar($_PUT['legajo']);
             break;
 
         case 'DELETE': //BORRAR
-            eliminar($_DELETE['legajo']);
+            var_dump($_DELETE);
+            // eliminar($_DELETE['legajo']);
             break;
 
         default:

@@ -1,1 +1,1 @@
-[{"nombre":"uno","legajo":"1"},{"nombre":"dos","legajo":"2"},{"nombre":"tres","legajo":"3"}]
+[{"nombre":"nombre","legajo":"107076"},{"nombre":"nombre","legajo":"107076"}]

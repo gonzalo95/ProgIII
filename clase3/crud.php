@@ -1,4 +1,13 @@
 <?php
+
+    function leer()
+    {
+        $file = fopen("./json.txt", "r");
+        $array = fread($file, filesize("./json.txt"));
+        fclose($file);
+        return json_decode($array);
+    }
+
     function guardar()
     {
         if (file_exists("./json.txt"))
@@ -25,23 +34,18 @@
         }
     }
 
-    function leer()
-    {
-        $file = fopen("./json.txt", "r");
-        $array = fread($file, filesize("./json.txt"));
-        fclose($file);
-        return json_decode($array);
-    }
-
     function eliminar($id)
     {
         $array = leer();
         $new = array();
         foreach ($array as $obj) {
-            if ($obj->legajo != $id) array_push($new, $obj);
+            if ($obj->legajo == $id){
+                continue;
+            }
+            array_push($new, $obj);
         }
         $file = fopen("./json.txt", "w");
-        fwrite($file, json_encode($array));
+        fwrite($file, json_encode($new));
         fclose($file);
     }
 
@@ -50,10 +54,30 @@
         $array = leer();
         $new = array();
         foreach ($array as $obj) {
-            if ($obj->legajo == $id) $obj->nombre = $_PUT['nombre'];
+            if ($obj->legajo == $id) $obj->nombre = $_POST['nombre'];
         }
         $file = fopen("./json.txt", "w");
         fwrite($file, json_encode($array));
         fclose($file);        
+    }
+
+    function TraerListado(){
+        $array = leer();
+        // var_dump($array);
+        foreach ($array as $item) {
+            echo "Nombre: ".$item->nombre.PHP_EOL;
+            echo "Legajo: ".$item->legajo.PHP_EOL;
+        }
+    }
+
+    function TraerUno($id){
+        $array = leer();
+        // var_dump($array);
+        foreach ($array as $item) {
+            if ($item->legajo == $id) {
+                echo "Nombre: ".$item->nombre.PHP_EOL;
+                echo "Legajo: ".$item->legajo.PHP_EOL;
+            }
+        }
     }
 ?>
