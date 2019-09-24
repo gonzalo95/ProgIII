@@ -1,0 +1,1 @@
+[{"marca":"marca","modelo":"modelo","patente":"1","precio":"1"},{"marca":"ford","modelo":"fiesta","patente":"2","precio":"2"},{"marca":"dodge","modelo":"charger","patente":"3","precio":"3"},{"marca":"chevrolet","modelo":"corsa","patente":"4","precio":"4"}]
