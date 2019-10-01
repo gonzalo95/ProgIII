@@ -161,11 +161,28 @@
     //     return array_reverse($lista);
     // }
 
-    echo Validar("Recuperatorio", 100);
-    function Validar($palabra, $max)
-    {
-        $validas = array("Recuperatorio", "Parcial", "Programacion");
-        if (in_array($palabra, $validas) && strlen($palabra) <= $max) return 1;
-        return 0;
-    }
+    // Ej 17
+    // echo Validar("Recuperatorio", 100);
+    // function Validar($palabra, $max)
+    // {
+    //     $validas = array("Recuperatorio", "Parcial", "Programacion");
+    //     if (in_array($palabra, $validas) && strlen($palabra) <= $max) return 1;
+    //     return 0;
+    // }
+
+    //Ej 18
+    // echo EsPar(2)."</br>";
+    // echo EsImpar(2)."</br>";
+    // echo EsPar(3)."</br>";
+    // echo EsImpar(3)."</br>";
+
+    // function EsPar($num)
+    // {
+    //     return ($num % 2 == 0) ? "TRUE" : "FALSE";
+    // }
+
+    // function EsImpar($num)
+    // {
+    //     return (EsPar($num) == "FALSE") ? "TRUE" : "FALSE";
+    // }
 ?>

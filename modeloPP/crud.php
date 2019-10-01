@@ -1,6 +1,7 @@
 <?php
     require_once "./clases/vehiculo.php";
     require_once "./clases/servicio.php";
+    require_once "./clases/turno.php";
     
     function leerVehiculos()
     {
@@ -70,7 +71,6 @@
         }
         $respuesta = 'No existe: '.$parametro;
         return json_encode(sprintf("{Error : %s}", $respuesta));
-        
     }
 
     function leerArray($path)
@@ -111,8 +111,86 @@
         return true;
     }
 
-    function sacarTurno()
+    function sacarTurno($patente, $fecha, $tipo)
     {
-        
+        $turnos = leerArray("./turnos.txt");
+        $vehiculos = leerArray("./vehiculos.txt");
+        $servicios = leerArray("./tiposServicios.txt");
+        $vehiculo = buscarVehiculo($patente, $vehiculos);
+        $servicio = buscarServicio($tipo, $servicios);
+        if (!$vehiculo) 
+        {
+            return json_encode("{Error : No existe vehiculo}");
+        }
+        if (!$servicio) 
+        {
+            return json_encode("{Error : No existe servicio}");
+        }
+        foreach ($turnos as $turno) 
+        {
+            if ($turno->fecha == $fecha) {
+                return json_encode("{Error : Fecha no disponible}");
+            }
+        }
+        $obj = new turno($fecha, $patente, $vehiculo->marca, $vehiculo->modelo, $servicio->precio, $tipo);
+        array_push($turnos, $obj);
+        $file = fopen("./turnos.txt", "w");
+        fwrite($file, json_encode($turnos));
+        fclose($file);
+        return json_encode("{Estado : OK!}");
+    }
+
+    function buscarVehiculo($patente, $array)
+    {
+        foreach ($array as $obj) 
+        {
+            if ($obj->patente == $patente) {
+                return $obj;
+            }
+        }
+        return false;
+    }
+
+    function buscarServicio($tipo, $array)
+    {
+        foreach ($array as $obj) 
+        {
+            if ($obj->tipo == $tipo) {
+                return $obj;
+            }
+        }
+        return false;
+    }
+
+    function turnos()
+    {
+        return leerArray("./turnos.txt");
+    }
+
+    function inscripciones($parametro)
+    {
+        $ocurrencias = array();
+        if (!file_exists("./turnos.txt"))
+        {
+            $respuesta = 'No existe: '.$parametro;
+            return json_encode(sprintf("{Error : %s}", $respuesta));
+        }
+        $array = leerArray("./turnos.txt");
+        $flag = false;
+        foreach ($array as $obj) 
+        {
+            if ($obj->fecha == $parametro ||
+                $obj->tipo == $parametro) 
+            {
+                array_push($ocurrencias, $obj);
+                $flag = true;
+            }
+        }
+        if ($flag)
+        {
+            return $ocurrencias;
+        }
+        $respuesta = 'No existe: '.$parametro;
+        return json_encode(sprintf("{Error : %s}", $respuesta));
     }
 ?>

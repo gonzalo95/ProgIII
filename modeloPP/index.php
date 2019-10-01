@@ -2,6 +2,7 @@
     require_once 'vendor/autoload.php';
     require_once "./clases/vehiculo.php";
     require_once "./clases/servicio.php";
+    require_once "./clases/turno.php";
     require_once "./crud.php";
     
     use Psr\Http\Message\RequestInterface as Request;
@@ -48,9 +49,22 @@
             return $response->withJson(json_encode("{Error : Id repetido}"), 200);
         });
 
-        $this -> get('/consultarVehiculo/{parametro}', function (Request $request, Response $response, $args){
+        $this -> get('/sacarTurno/{patente}/{tipo}/{fecha}', function (Request $request, Response $response, $args){
+            $patente = $args['patente'];
+            $fecha = $args['fecha'];
+            $tipo = $args['tipo'];
+            $obj = sacarTurno($patente, $fecha, $tipo);
+            return $response->withJson($obj, 200);
+        });
+
+        $this -> get('/turnos', function (Request $request, Response $response){
+            $obj = turnos();
+            return $response->withJson($obj, 200);
+        });
+
+        $this -> get('/inscripciones/{parametro}', function (Request $request, Response $response, $args){
             $parametro = $args['parametro'];
-            $obj = consultarVehiculo($parametro);
+            $obj = inscripciones($parametro);
             return $response->withJson($obj, 200);
         });
         
