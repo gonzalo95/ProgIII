@@ -1,0 +1,1 @@
+[{"marca":"marca","patente":"111","kms":"100"},{"marca":"marca 2","patente":"112","kms":"100"},{"marca":"marca 2","patente":"113","kms":"100"},{"marca":"modificado!!!!!!","patente":"666","kms":"1234581","foto":"Lighthouse.jpg"}]
