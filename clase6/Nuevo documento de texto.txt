@@ -14,4 +14,4 @@
 14.-UPDATE `productos` SET `precio`=97.50 WHERE tamaño="grande"
 15.-UPDATE productos p, envios e SET `Tamaño` = "Mediano" WHERE p.pNumero = e.pNumero AND p.Tamaño = "Chico" AND e.Cantidad >= 300
 16.-DELETE FROM `productos` WHERE pNumero = 1
-17.-
+17.-DELETE FROM `provedores` WHERE Numero NOT IN (SELECT DISTINCT Numero FROM envios);
